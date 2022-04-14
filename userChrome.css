@@ -1,0 +1,259 @@
+/* Windows specific styles */
+@media (-moz-platform: windows-win10) {
+    /* Hide main tabs toolbar */
+    :root[tabsintitlebar]{
+          --uc-window-control-width: 138px; /* Space at the right of nav-bar for window controls */
+          /* --uc-window-drag-space-width: 24px; */  /* To add extra window drag space in nav-bar */
+      }
+
+    #nav-bar{
+          border-inline: var(--uc-window-drag-space-width,0px) solid var(--toolbar-bgcolor) ;
+          border-inline-style: solid !important;
+          border-right-width: calc(var(--uc-window-control-width,0px) + var(--uc-window-drag-space-width,0px));
+
+          padding-top: 0px !important;
+          margin-left: -80px; /* Removes the space left when hiding .titlebar-buttonbox-container */
+      }
+
+    :root {
+          --uc-toolbar-height: 32px;
+          --chrome-content-separator-color: none !important;
+      }
+
+    :root:not([uidensity="compact"]) {
+          --uc-toolbar-height: 38px;
+      }
+
+    #TabsToolbar {
+          visibility: collapse !important;
+      }
+    /* Hide the Windows controls on the left side. */
+    #TabsToolbar .titlebar-buttonbox-container {
+          visibility: hidden !important;
+      }
+    /* Line up the Windows controls with the rest of the icons in the toolbar. */
+    .titlebar-buttonbox-container {
+          margin-top: 7px;
+      }
+    :root:not([inFullscreen]) #nav-bar {
+          margin-top: calc(0px - var(--uc-toolbar-height));
+      }
+
+    #toolbar-menubar {
+          min-height: unset !important;
+          height: var(--uc-toolbar-height) !important;
+          position: relative;
+      }
+
+    #main-menubar {
+          -moz-box-flex: 1;
+          background-color: var(--toolbar-bgcolor,--toolbar-non-lwt-bgcolor);
+          background-clip: padding-box;
+          border-right: 30px solid transparent;
+          border-image: linear-gradient(to left, transparent, var(--toolbar-bgcolor,--toolbar-non-lwt-bgcolor) 30px) 20 / 30px;
+      }
+
+    #toolbar-menubar:not([inactive]) {
+          z-index: 2;
+      }
+
+    #toolbar-menubar[inactive] > #menubar-items {
+          opacity: 0;
+          pointer-events: none;
+          margin-left: var(--uc-window-drag-space-width,0px);
+      }
+
+    :root[inFullscreen] #nav-bar {
+          border-inline: none !important;
+      }
+}
+
+
+/* General styles */
+#browser {
+    position: relative;
+}
+
+#sidebar-box[sidebarcommand*="tabcenter"] {
+    z-index: 1;
+}
+
+#sidebar-box[sidebarcommand*="tabcenter"] #sidebar-header {
+    visibility: collapse;
+    display: none;
+}
+
+#sidebar-box[sidebarcommand*="tabcenter"]:not([hidden]) {
+    display: block;
+    position: absolute;
+    min-width: 48px;
+    max-width: 48px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    border-right: 1px solid var(--sidebar-border-color);
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+}
+
+[sidebarcommand*="tabcenter"] #sidebar,
+#sidebar-box[sidebarcommand*="tabcenter"]:hover {
+    min-width: 10vw !important;
+    width: 30vw !important;
+    max-width: 200px !important;
+    z-index: 10 !important;
+}
+
+@media (width >= 1200px) {
+    [sidebarcommand*="tabcenter"] #sidebar,
+    #sidebar-box[sidebarcommand*="tabcenter"]:hover {
+        max-width: 250px !important;
+    }
+}
+
+[sidebarcommand*="tabcenter"] ~ #sidebar-splitter {
+    display: none;
+}
+
+[sidebarcommand*="tabcenter"] #sidebar {
+    max-height: 100%;
+    height: 100%;
+}
+
+#sidebar-box[sidebarcommand*="tabcenter"]:not([hidden]) ~ #appcontent {
+    margin-left: 48px;
+}
+
+#main-window[inFullscreen][inDOMFullscreen] #appcontent {
+    margin-left: 0;
+}
+
+#main-window[inFullscreen] #sidebar {
+    height: 100vh;
+}
+
+[sidebarcommand*="tabcenter"] #sidebar-header {
+    background: #0C0C0D;
+    border-bottom: none !important;
+}
+
+[sidebarcommand*="tabcenter"] ~ #sidebar-splitter {
+    border-right-color: #0C0C0D !important;
+    border-left-color: #0C0C0D !important;
+}
+
+[sidebarcommand*="tabcenter"] #sidebar-switcher-target,
+[sidebarcommand*="tabcenter"] #sidebar-close {
+    filter: invert(100%);
+}
+
+@media (max-width: 630px) {
+    #urlbar-container {
+        min-width: 100% !important;
+    }
+    #menubar-items {
+        display: none !important;
+    }
+}
+
+/*********************************************************************************************************************************************************/
+
+/*
+ * Recreates the basic functionality of the popular Roomy Bookmarks Toolbar add-on in Firefox 57+.
+ * Uncomment the section with the functionality that you want, leave all other sections commented.
+ * This only affects toplevel toolbar bookmarks and folders, bookmarks and subfolders in folders are unaffected.
+ * The tooltips on long hover (showing bookmark name and link) are unaffected.
+ */
+
+
+
+/* Remove some space between bookmark icons. If you like having things a bit more spaced out, you can instead add the padding statements. */
+#PlacesToolbarItems > .bookmark-item {
+  margin-left: -1px !important;
+  margin-right: -1px !important;
+  /*
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+  */
+}
+
+
+
+/* Center bookmark toolbar items */
+
+#PlacesChevron {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+#PlacesToolbar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+#PlacesToolbarItems > .bookmark-item:last-child {
+  margin-right: 0px !important;
+}
+
+/* Optional: center url input bar text */
+
+#urlbar-input {
+	text-align: center !important;
+}
+
+
+
+
+/* Hide "Other Bookmarks" folder in the bookmarks toolbar */
+#PlacesToolbar #OtherBookmarks { display: none !important; }
+
+
+/* No text on toolbar bookmarks; Text on bookmark folders. No hover effect. */
+
+#PlacesToolbarItems > .bookmark-item:not([container]):not([open="true"]) > .toolbarbutton-text {
+  display: none !important;
+}
+
+#PlacesToolbarItems > .bookmark-item:not([container]):not([open="true"]) > .toolbarbutton-icon[label]:not([label=""]) {
+  margin-inline-end: 0px !important;
+}
+
+
+
+/* No text on toolbar bookmarks; No text on bookmark folders. Show bookmark text on hover. */
+/*
+#PlacesToolbarItems > .bookmark-item:not(:hover):not([open="true"]) > .toolbarbutton-text {
+  display: none !important;
+}
+
+#PlacesToolbarItems > .bookmark-item:not(:hover):not([open="true"]) > .toolbarbutton-icon[label]:not([label=""]) {
+  margin-inline-end: 0px !important;
+}
+*/
+
+
+/* No text on toolbar bookmarks; Text on bookmark folders. Show bookmark text on hover. */
+/*
+#PlacesToolbarItems > .bookmark-item:not(:hover):not([container]):not([open="true"]) > .toolbarbutton-text {
+  display: none !important;
+}
+
+#PlacesToolbarItems > .bookmark-item:not(:hover):not([container]):not([open="true"]) > .toolbarbutton-icon[label]:not([label=""]) {
+  margin-inline-end: 0px !important;
+}
+*/
+/*
+
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"); /* only needed once */
+
+/*#bookmarksMenuPopup .bookmark-item { max-width:300px!important; }
+
+#personal-bookmarks toolbarbutton.bookmark-item { max-width:100px!important; }
+#personal-bookmarks menupopup .bookmark-item { max-width:300px!important; }
+
+#BMB_bookmarksPopup .bookmark-item { max-width:300px!important; }
+
+.bookmark-item[livemark] .bookmark-item { max-width:none!important; }*/
+
+.bookmark-item[container] {
+  list-style-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0iY29udGV4dC1maWxsIiBmaWxsLW9wYWNpdHk9ImNvbnRleHQtZmlsbC1vcGFjaXR5IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KICA8cGF0aCBkPSJNMTQuNSAzSDYuOTE0YS41LjUgMCAwIDEtLjM1NC0uMTQ2TDUuMTQ2IDEuNDM5QTEuNDkxIDEuNDkxIDAgMCAwIDQuMDg2IDFIMS41QTEuNSAxLjUgMCAwIDAgMCAyLjV2MTFBMS41IDEuNSAwIDAgMCAxLjUgMTVoMTNhMS41IDEuNSAwIDAgMCAxLjUtMS41di05QTEuNSAxLjUgMCAwIDAgMTQuNSAzem0uNSAxMC41YS41LjUgMCAwIDEtLjUuNWgtMTNhLjUuNSAwIDAgMS0uNS0uNVY2aDE0ek0xIDVWMi41YS41LjUgMCAwIDEgLjUtLjVoMi41ODZhLjUuNSAwIDAgMSAuMzU0LjE0NmwxLjQxNCAxLjQxNUExLjQ5MSAxLjQ5MSAwIDAgMCA2LjkxNCA0SDE0LjVhLjUuNSAwIDAgMSAuNS41VjV6IiBmaWxsPSIjYjE4NTAyIi8+DQogIDxwYXRoIGQ9Ik0xNSAxMy41YS41LjUgMCAwIDEtLjUuNWgtMTNhLjUuNSAwIDAgMS0uNS0uNVY2aDE0eiIgZmlsbC1vcGFjaXR5PSIuOCIgZmlsbD0iI2ZmZTA4MiIvPg0KICA8cGF0aCBkPSJNMSA1VjIuNWEuNS41IDAgMCAxIC41LS41aDIuNTg2YS41LjUgMCAwIDEgLjM1NC4xNDZsMS40MTQgMS40MTVBMS40OTEgMS40OTEgMCAwIDAgNi45MTQgNEgxNC41YS41LjUgMCAwIDEgLjUuNVY1eiIgZmlsbC1vcGFjaXR5PSIuNiIgZmlsbD0iI2ZmZTA4MiIvPg0KICA8cGF0aCBkPSJNMTUgMTMuNWEuNS41IDAgMCAxLS41LjVoLTEzYS41LjUgMCAwIDEtLjUtLjVWMTNoMTR6IiBmaWxsLW9wYWNpdHk9Ii41IiBmaWxsPSIjZmZlMDgyIi8+DQo8L3N2Zz4=") !important;
+}
